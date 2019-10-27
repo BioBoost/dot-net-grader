@@ -29,22 +29,21 @@ console.log(studentRoster);
 
 // Build task list
 let tasks = studentRoster.get_students().map(student => {
-  return assignments.map(assignment => new UnitTestTask(student.name, assignment, `${student.repoDir}/${assignment.dirname}`))
+  return assignments.map(assignment => new UnitTestTask(student, assignment, `${student.repoDir}/${assignment.dirname}`))
 }).flat();
 
 console.log(tasks);
-
 console.log("Grading ...");
 
-// async function run_tasks() {
-//   const asyncTasks = tasks.map(m => m.execute());
-//   await Promise.all(asyncTasks);
-//   console.log("Done running unit tests");
-//   console.log(JSON.stringify(roster));
-// }
+async function run_tasks() {
+  const asyncTasks = tasks.map(m => m.execute());
+  await Promise.all(asyncTasks);
+  console.log("Done running unit tests");
+  console.log(JSON.stringify(studentRoster));
+}
 
-// run_tasks();
-// console.log("Working ...");
+run_tasks();
+console.log("Working ...");
 
 // let results = [
 //   ['Student', 'Assignment 1 (15%)', 'Assignment 2 (40%)', 'Assignment 3 (45%)', 'Total'],
