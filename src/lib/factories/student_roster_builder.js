@@ -1,6 +1,6 @@
-const Student = require('./student')
-const StudentRoster = require('./student_roster');
-const DirectoryHelper = require('./directory_helper');
+const Student = require('../student')
+const StudentRoster = require('../student_roster');
+const DirectoryHelper = require('../helpers/directory_helper');
 
 class StudentRosterBuilder {
 

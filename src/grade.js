@@ -3,13 +3,13 @@
 const program = require('commander');
 const fs = require('fs');
 
-const ResultsTableGenerator = require('./lib/results_table_generator');
+const ResultsTableGenerator = require('./lib/output/results_table_generator');
 const Assignment = require('./lib/assignment');
 const Student = require('./lib/student');
 const Result = require('./lib/result');
 const StudentRoster = require('./lib/student_roster');
 const UnitTestTask = require('./lib/unit_test_task');
-const StudentRosterBuilder = require('./lib/student_roster_builder');
+const StudentRosterBuilder = require('./lib/factories/student_roster_builder');
 
 program
   .version('0.0.1')
