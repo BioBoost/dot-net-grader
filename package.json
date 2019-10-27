@@ -1,0 +1,26 @@
+{
+  "name": "dot-net-grader",
+  "version": "0.0.1",
+  "description": "Grading app for the assignments of students",
+  "main": "src/grade.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BioBoost/dot-net-grader.git"
+  },
+  "keywords": [
+    "dot",
+    "net",
+    "unit",
+    "test",
+    "grade"
+  ],
+  "author": "Nico De Witte",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BioBoost/dot-net-grader/issues"
+  },
+  "homepage": "https://github.com/BioBoost/dot-net-grader#readme"
+}
