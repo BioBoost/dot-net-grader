@@ -6,6 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": {
+    "grade": "./src/grade.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/BioBoost/dot-net-grader.git"
