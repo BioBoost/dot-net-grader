@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 
 const program = require('commander');
-const ResultsTableGenerator = require('./lib/results_table_generator');
+const fs = require('fs');
 
+const ResultsTableGenerator = require('./lib/results_table_generator');
 const Assignment = require('./lib/assignment');
 const Student = require('./lib/student');
 const Result = require('./lib/result');
@@ -15,13 +16,18 @@ program
  
 program.parse(process.argv);
 
-console.log("Grading ...");
+// Load json config
+const config = JSON.parse(fs.readFileSync(program.config));
 
-let assignments = [
-  { title: 'Assignment 1', weight: 0.15 },
-  { title: 'Assignment 2', weight: 0.4 },
-  { title: 'Assignment 3', weight: 0.45 },
-]
+// Build assignments
+let assignments = [];
+config.evaluation.assignments.forEach(assign => {
+  assignments.push(new Assignment(assign.title, assign.weight, assign.dir));
+});
+
+
+
+console.log("Grading ...");
 
 let testResults = [
   {
