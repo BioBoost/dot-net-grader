@@ -42,10 +42,6 @@ let roster = new StudentRoster();
 let marki = new Student('Marki');
 roster.add_student(marki);
 
-// Results from the tasks that run the tests
-// let studentResult = new Result(3, 6, assignment1);
-// roster.add_result('Marki', studentResult);
-
 console.log(JSON.stringify(roster));
 
 // Runnings tasks
@@ -62,8 +58,6 @@ async function run_tasks() {
 
 run_tasks();
 console.log("Working ...");
-
-// let resultsData = TestResultsCombiner(assignments, testResults);
 
 // let results = [
 //   ['Student', 'Assignment 1 (15%)', 'Assignment 2 (40%)', 'Assignment 3 (45%)', 'Total'],
