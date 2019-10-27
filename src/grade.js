@@ -3,13 +3,13 @@
 const program = require('commander');
 const fs = require('fs');
 
-const ResultsTableGenerator = require('./lib/output/results_table_generator');
 const Assignment = require('./lib/assignment');
 const Student = require('./lib/student');
 const Result = require('./lib/result');
 const StudentRoster = require('./lib/student_roster');
 const UnitTestTask = require('./lib/unit_test_task');
 const StudentRosterBuilder = require('./lib/factories/student_roster_builder');
+const StudentRosterTableGenerator = require('./lib/output/student_roster_table_generator');
 
 program
   .version('0.0.1')
@@ -37,17 +37,10 @@ let tasks = studentRoster.get_students().map(student => {
 async function run_tasks() {
   const asyncTasks = tasks.map(m => m.execute());
   await Promise.all(asyncTasks);
-  console.log("Done running unit tests");
-  console.log(JSON.stringify(studentRoster));
+  // console.log("Done running unit tests");
+  // console.log(JSON.stringify(studentRoster));
+  console.log(StudentRosterTableGenerator.generate(studentRoster, assignments));
 }
 
 run_tasks();
 console.log("Working ...");
-
-// let results = [
-//   ['Student', 'Assignment 1 (15%)', 'Assignment 2 (40%)', 'Assignment 3 (45%)', 'Total'],
-//   ['Marki', '3/6 passed', '1/8 passed', '1/2 passed', '14.7%'],
-//   ['Danny', '6/6 passed', '7/8 passed', '1/2 passed', '94.5%']
-// ];
-
-// console.log(ResultsTableGenerator.generate(results));
