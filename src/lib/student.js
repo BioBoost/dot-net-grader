@@ -1,6 +1,7 @@
 class Student {
-  constructor(name) {
+  constructor(name, repoDir) {
     this.name = name;
+    this.repoDir = repoDir;
     this.results = [];
   }
 

@@ -9,6 +9,7 @@ const Student = require('./lib/student');
 const Result = require('./lib/result');
 const StudentRoster = require('./lib/student_roster');
 const UnitTestTask = require('./lib/unit_test_task');
+const StudentRosterBuilder = require('./lib/student_roster_builder');
 
 program
   .version('0.0.1')
@@ -19,51 +20,31 @@ program.parse(process.argv);
 // Load json config
 const config = JSON.parse(fs.readFileSync(program.config));
 
-// Build assignments
-let assignments = [];
-config.evaluation.assignments.forEach(assign => {
-  assignments.push(new Assignment(assign.title, assign.weight, assign.dir));
-});
+// Build assignments and student roster
+let assignments = config.evaluation.assignments.map(a => new Assignment(a.title, a.weight, a.dir));
+const studentRoster = StudentRosterBuilder.build_roster_from_directories('.', config.evaluation.repo_prefix);
 
+console.log(assignments);
+console.log(studentRoster);
 
+// Build task list
+let tasks = studentRoster.get_students().map(student => {
+  return assignments.map(assignment => new UnitTestTask(student.name, assignment, `${student.repoDir}/${assignment.dirname}`))
+}).flat();
+
+console.log(tasks);
 
 console.log("Grading ...");
 
-let testResults = [
-  {
-    student: 'Marki',
-    results: {
-      'Assignment 1': { tests: { passed: 3, total: 6 } },
-      'Assignment 2': { tests: { passed: 1, total: 8 } },
-      'Assignment 3': { tests: { passed: 1, total: 2 } }
-    }
-  }
-]
+// async function run_tasks() {
+//   const asyncTasks = tasks.map(m => m.execute());
+//   await Promise.all(asyncTasks);
+//   console.log("Done running unit tests");
+//   console.log(JSON.stringify(roster));
+// }
 
-// these we parse from the config
-let assignment1 = new Assignment('Assignment 1', 0.15);
-
-// Should be created when building the tasks for running the tests
-let roster = new StudentRoster();
-let marki = new Student('Marki');
-roster.add_student(marki);
-
-console.log(JSON.stringify(roster));
-
-// Runnings tasks
-let tasks = [
-  new UnitTestTask(marki, assignment1, './somedir')
-];
-
-async function run_tasks() {
-  const asyncTasks = tasks.map(m => m.execute());
-  await Promise.all(asyncTasks);
-  console.log("Done running unit tests");
-  console.log(JSON.stringify(roster));
-}
-
-run_tasks();
-console.log("Working ...");
+// run_tasks();
+// console.log("Working ...");
 
 // let results = [
 //   ['Student', 'Assignment 1 (15%)', 'Assignment 2 (40%)', 'Assignment 3 (45%)', 'Total'],
