@@ -25,5 +25,8 @@
   "bugs": {
     "url": "https://github.com/BioBoost/dot-net-grader/issues"
   },
-  "homepage": "https://github.com/BioBoost/dot-net-grader#readme"
+  "homepage": "https://github.com/BioBoost/dot-net-grader#readme",
+  "dependencies": {
+    "commander": "^3.0.2"
+  }
 }
