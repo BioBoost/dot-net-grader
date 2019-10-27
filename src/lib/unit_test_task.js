@@ -1,4 +1,6 @@
 const Result = require('./result');
+const DotNetHelper = require('./helpers/dot_net_helper');
+const { exec } = require('child_process');
 
 class UnitTestTask {
 
@@ -10,11 +12,12 @@ class UnitTestTask {
 
   execute() {
     return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        console.log(`Running unit test for ${this.student.name}`);
-        this.student.add_result(new Result(3, 6, this.assignment));
+      exec(DotNetHelper.build_unit_test_command(this.dir), (error, stdout, stderr) => {
+        //   console.log(`Running unit test for ${this.student.name}`);
+        let testResults = DotNetHelper.parse_test_output(stdout);
+        this.student.add_result(new Result(testResults.passed, testResults.total, this.assignment));
         resolve(null);
-      }, 2000);
+      });
     });
   }
 

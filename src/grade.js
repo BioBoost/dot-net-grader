@@ -24,16 +24,15 @@ const config = JSON.parse(fs.readFileSync(program.config));
 let assignments = config.evaluation.assignments.map(a => new Assignment(a.title, a.weight, a.dir));
 const studentRoster = StudentRosterBuilder.build_roster_from_directories('.', config.evaluation.repo_prefix);
 
-console.log(assignments);
-console.log(studentRoster);
+// console.log(assignments);
+// console.log(studentRoster);
 
 // Build task list
 let tasks = studentRoster.get_students().map(student => {
   return assignments.map(assignment => new UnitTestTask(student, assignment, `${student.repoDir}/${assignment.dirname}`))
 }).flat();
 
-console.log(tasks);
-console.log("Grading ...");
+// console.log(tasks);
 
 async function run_tasks() {
   const asyncTasks = tasks.map(m => m.execute());
