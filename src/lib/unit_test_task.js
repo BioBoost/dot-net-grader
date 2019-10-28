@@ -15,7 +15,7 @@ class UnitTestTask {
       exec(DotNetHelper.build_unit_test_command(this.dir), (error, stdout, stderr) => {
         //   console.log(`Running unit test for ${this.student.name}`);
         let testResults = DotNetHelper.parse_test_output(stdout);
-        this.student.add_result(new Result(testResults.passed, testResults.total, this.assignment));
+        this.student.add_result(new Result(testResults.passed, testResults.total, this.assignment, testResults.errors));
         resolve(null);
       });
     });

@@ -4,16 +4,20 @@ class DotNetHelper {
 
     let total = 0;
     let passed = 0;
+    let errors = [];
 
     if (stdout.match(/Starting test execution, please wait.../)) {
-      console.log("Tests are running .... all ok");
       total = stdout.match(/Total tests: (.*)/)[1]
       passed = stdout.match(/.*?Passed: (.*)/)[1]
+    } else {
+      errors = Array.from(stdout.matchAll(/(.*?error.*)/g)).map(e => e[0]);
+      // console.log(errors);
     }
 
     return {
       total: total,
-      passed: passed
+      passed: passed,
+      errors: errors
     }
   }
 
