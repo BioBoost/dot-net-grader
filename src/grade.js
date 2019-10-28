@@ -10,6 +10,7 @@ const StudentRoster = require('./lib/student_roster');
 const UnitTestTask = require('./lib/unit_test_task');
 const StudentRosterBuilder = require('./lib/factories/student_roster_builder');
 const StudentRosterTableGenerator = require('./lib/output/student_roster_table_generator');
+const AssignmentsBuilder = require('./lib/factories/assignments_builder');
 
 program
   .version('0.0.1')
@@ -21,7 +22,7 @@ program.parse(process.argv);
 const config = JSON.parse(fs.readFileSync(program.config));
 
 // Build assignments and student roster
-let assignments = config.evaluation.assignments.map(a => new Assignment(a.title, a.weight, a.dir));
+let assignments = AssignmentsBuilder.build(config);
 const studentRoster = StudentRosterBuilder.build_roster_from_directories('.', config.evaluation.repo_prefix);
 
 // console.log(assignments);
@@ -45,8 +46,5 @@ async function run_tasks() {
 run_tasks();
 console.log("Working ...");
 
-// Still needs coloring
 // Example config !
-// Allow skipping of tests
-// What if project doesnt build ?
 // Stacktrace log
