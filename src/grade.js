@@ -44,3 +44,9 @@ async function run_tasks() {
 
 run_tasks();
 console.log("Working ...");
+
+// Still needs coloring
+// Example config !
+// Allow skipping of tests
+// What if project doesnt build ?
+// Stacktrace log
