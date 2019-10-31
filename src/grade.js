@@ -11,6 +11,7 @@ const UnitTestTask = require('./lib/unit_test_task');
 const StudentRosterBuilder = require('./lib/factories/student_roster_builder');
 const StudentRosterTableGenerator = require('./lib/output/student_roster_table_generator');
 const AssignmentsBuilder = require('./lib/factories/assignments_builder');
+const ConfigChecker = require('./lib/helpers/config_checker');
 
 program
   .version('0.0.1')
@@ -20,6 +21,11 @@ program.parse(process.argv);
 
 // Load json config
 const config = JSON.parse(fs.readFileSync(program.config));
+let confChecker = new ConfigChecker();
+if (!confChecker.is_valid(config)) {
+  console.log(`Config contains errors:\n${confChecker.get_errors().map(err => `   > ${err}`)}`);
+  process.exit(22);
+}
 
 // Build assignments and student roster
 let assignments = AssignmentsBuilder.build(config);
