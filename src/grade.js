@@ -12,6 +12,7 @@ const StudentRosterBuilder = require('./lib/factories/student_roster_builder');
 const StudentRosterTableGenerator = require('./lib/output/student_roster_table_generator');
 const AssignmentsBuilder = require('./lib/factories/assignments_builder');
 const ConfigChecker = require('./lib/helpers/config_checker');
+const StudentFeedbackGenerator = require('./lib/output/student_feedback_generator');
 
 program
   .version('0.0.1')
@@ -47,6 +48,7 @@ async function run_tasks() {
   // console.log("Done running unit tests");
   // console.log(JSON.stringify(studentRoster));
   console.log(StudentRosterTableGenerator.generate(studentRoster, assignments));
+  studentRoster.get_students().map(student => StudentFeedbackGenerator.create_feedback(student));
 }
 
 run_tasks();
