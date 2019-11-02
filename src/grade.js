@@ -16,7 +16,8 @@ const StudentFeedbackGenerator = require('./lib/output/student_feedback_generato
 
 program
   .version('0.0.1')
-  .option('-c, --config <file>', 'json config file', './grade.json');
+  .option('-c, --config <file>', 'json config file', './grade.json')
+  .option('-f, --feedback', 'generate feedback file in repo');
  
 program.parse(process.argv);
 
@@ -48,7 +49,10 @@ async function run_tasks() {
   // console.log("Done running unit tests");
   // console.log(JSON.stringify(studentRoster));
   console.log(StudentRosterTableGenerator.generate(studentRoster, assignments));
-  studentRoster.get_students().map(student => StudentFeedbackGenerator.create_feedback(student));
+  if (program.feedback) {
+    console.log("Generating feedback");
+    studentRoster.get_students().map(student => StudentFeedbackGenerator.create_feedback(student));
+  }
 }
 
 run_tasks();
