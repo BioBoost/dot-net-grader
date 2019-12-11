@@ -31,7 +31,13 @@ if (!confChecker.is_valid(config)) {
 
 // Build assignments and student roster
 let assignments = AssignmentsBuilder.build(config);
-const studentRoster = StudentRosterBuilder.build_roster_from_directories('.', config.evaluation.repo_prefix);
+let studentRoster = null;
+if (config.evaluation.repo_prefix) {
+  studentRoster = StudentRosterBuilder.build_roster_from_directories('.', config.evaluation.repo_prefix);
+} else {
+  studentRoster = new StudentRoster();
+  studentRoster.add_student(new Student('Unknown', '.'));
+}
 
 // console.log(assignments);
 // console.log(studentRoster);
@@ -60,3 +66,4 @@ console.log("Working ...");
 
 // Example config !
 // Stacktrace log
+// Need to give errors if the dirs dont exist!
