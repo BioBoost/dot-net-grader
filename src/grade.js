@@ -15,7 +15,7 @@ const ConfigChecker = require('./lib/helpers/config_checker');
 const StudentFeedbackGenerator = require('./lib/output/student_feedback_generator');
 
 program
-  .version('0.0.1')
+  .version('1.0.0')
   .option('-c, --config <file>', 'json config file', './grade.json')
   .option('-f, --feedback', 'generate feedback file in repo');
  

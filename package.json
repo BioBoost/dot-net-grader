@@ -1,6 +1,6 @@
 {
   "name": "dot-net-grader",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Grading app for the assignments of students",
   "main": "src/grade.js",
   "scripts": {
