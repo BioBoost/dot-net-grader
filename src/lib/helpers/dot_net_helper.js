@@ -8,7 +8,11 @@ class DotNetHelper {
 
     if (stdout.match(/Starting test execution, please wait.../)) {
       total = stdout.match(/Total tests: (.*)/)[1]
-      passed = stdout.match(/.*?Passed: (.*)/)[1]
+      if (stdout.match(/.*?Passed: (.*)/)) {
+        passed = stdout.match(/.*?Passed: (.*)/)[1]
+      } else {
+        passed = total - stdout.match(/.*?Failed: (.*)/)[1]
+      }
     } else {
       errors = Array.from(stdout.matchAll(/(.*?error.*)/g)).map(e => e[0]);
       // console.log(errors);
